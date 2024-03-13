@@ -3,6 +3,15 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+"""Mongo id scalar type"""
+scalar ObjectId
+
 type Query {
-  getAllWoods: String!
+  getAllWoods: [Wood!]
+}
+
+"""Wood"""
+type Wood {
+  _id: ObjectId!
+  name: String!
 }

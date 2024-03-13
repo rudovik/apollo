@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "next dev -p 8000",
-    "build": "next build",
+    "dev": "npx graphql-let && next dev -p 8000",
+    "build": "npx graphql-let && next build",
     "start": "next start -p 8000",
     "lint": "next lint"
   },
@@ -18,9 +18,12 @@
     "@apollo/experimental-nextjs-app-support": "^0.8.0",
     "@apollo/server": "^4.10.1",
     "@as-integrations/next": "^3.0.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.0",
+    "@graphql-codegen/typescript-resolvers": "^4.0.6",
     "@typegoose/typegoose": "^12.2.0",
     "class-validator": "^0.14.1",
     "graphql": "^16.8.1",
+    "graphql-let": "^0.18.4",
     "graphql-scalars": "^1.22.5",
     "graphql-tag": "^2.12.6",
     "mongoose": "^8.2.1",
@@ -28,6 +31,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "reflect-metadata": "^0.2.1",
+    "terser-webpack-plugin": "^5.3.10",
     "type-graphql": "^2.0.0-beta.6"
   },
   "devDependencies": {

@@ -41,13 +41,13 @@ const apolloSingleton = (function () {
   let handler: HandlerType
 
   async function initialize(): Promise<HandlerType> {
-    // let p: string = path.resolve(__dirname, "schema.gql")
-    // p = p.split(".next")[0] + "lib" + path.sep + "schema.graphqls"
+    let p: string = path.resolve(__dirname, "schema.gql")
+    p = p.split(".next")[0] + "lib" + path.sep + "schema.graphqls"
 
     const schema = await buildSchema({
       resolvers: [WoodResolver],
       // emitSchemaFile: p,
-      emitSchemaFile: false,
+      emitSchemaFile: process.env.NODE_ENV === "production" ? false : p,
       scalarsMap: [{ type: ObjectId, scalar: ObjectIdScalar }],
       validate: true,
     })
