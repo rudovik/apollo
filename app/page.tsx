@@ -1,3 +1,5 @@
+"use client"
+
 import { useGetAllWoodsSuspenseQuery } from "lib/graphql/GetAllWoods.graphql"
 
 export default function Page() {

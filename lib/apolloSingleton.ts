@@ -46,7 +46,7 @@ const apolloSingleton = (function () {
 
     const schema = await buildSchema({
       resolvers: [WoodResolver],
-      // emitSchemaFile: p,
+      // emitSchemaFile: false,
       emitSchemaFile: process.env.NODE_ENV === "production" ? false : p,
       scalarsMap: [{ type: ObjectId, scalar: ObjectIdScalar }],
       validate: true,

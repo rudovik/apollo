@@ -8,7 +8,11 @@ import {
   SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support/ssr"
 
-const uri = typeof window === "undefined" ? "http://localhost:8000" : ""
+const uri =
+  typeof window === "undefined" || process.env.NODE_ENV === "development"
+    ? "http://localhost:8000"
+    : ""
+console.log(uri)
 
 const makeClient = () => {
   const httpLink = new HttpLink({
