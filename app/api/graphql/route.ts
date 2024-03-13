@@ -35,10 +35,8 @@ const server = new ApolloServer({
 })
 
 async function handler(req: NextRequest) {
-  let p: string = path.resolve(__dirname, "schema.gql")
-  p = p.split(".next")[0] + "lib" + path.sep + "schema.graphqls"
-
-  const _handler = startServerAndCreateNextHandler(server)
+  // let p: string = path.resolve(__dirname, "schema.gql")
+  // p = p.split(".next")[0] + "lib" + path.sep + "schema.graphqls"
 
   const schema = await buildSchema({
     resolvers: [WoodResolver],
@@ -46,6 +44,10 @@ async function handler(req: NextRequest) {
     scalarsMap: [{ type: ObjectId, scalar: ObjectIdScalar }],
     validate: true,
   })
+
+  const server = new ApolloServer({ schema, introspection: true })
+
+  const _handler = startServerAndCreateNextHandler(server)
 
   const response = await _handler(req)
   return response
