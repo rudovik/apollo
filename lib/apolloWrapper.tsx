@@ -9,7 +9,7 @@ import {
 } from "@apollo/experimental-nextjs-app-support/ssr"
 
 const makeClient = (host) => {
-  const uri = typeof window === "undefined" ? "http://" + host : ""
+  const uri = typeof window === "undefined" ? "https://" + host : ""
   const httpLink = new HttpLink({
     uri: `${uri}/api/graphql`,
     fetchOptions: { cache: "no-store" },
