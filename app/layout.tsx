@@ -1,16 +1,14 @@
-import { ApolloWrapper } from "lib/apolloWrapper"
-import { headers } from "next/headers"
-import { getCookies } from "lib/getCookies"
+"use server"
 
-export default function RootLayout({ children }) {
-  const headerList = headers()
-  const host = headerList.get("Host")
-  const cookies = getCookies()
-  console.log(cookies)
+import { ApolloWrapper } from "lib/apolloWrapper"
+import { getHostAndCookie } from "lib/getHostAndCookie"
+
+export default async function RootLayout({ children }) {
+  const { host, cookie } = getHostAndCookie()
 
   return (
     <html lang="en">
-      <ApolloWrapper host={host} cookies={cookies}>
+      <ApolloWrapper host={host} cookies={cookie}>
         <body>{children}</body>
       </ApolloWrapper>
     </html>
