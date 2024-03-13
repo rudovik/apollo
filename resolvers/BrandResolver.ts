@@ -8,29 +8,30 @@ import {
 } from "type-graphql"
 import { isAuth } from "middlewares/isAuth"
 import { isAdmin } from "middlewares/isAdmin"
-import { WoodModel } from "models/Wood"
+import { BrandModel } from "models/Brand"
 import type { RequestContext } from "types/RequestContext"
-import { Wood } from "models/Wood"
+import { Brand } from "models/Brand"
 import { SuccessResponse } from "types/SuccessResponse"
 
 @Resolver()
-export class WoodResolver {
+export class BrandResolver {
   @Mutation(() => SuccessResponse)
   @UseMiddleware(isAuth())
   @UseMiddleware(isAdmin)
-  async addWood(
+  async addBrand(
     @Ctx() ctx: RequestContext,
     @Arg("name") name: string
   ): Promise<SuccessResponse> {
-    const wood = new WoodModel({ name })
-    await wood.save()
+    const brand = await BrandModel.create({
+      name,
+    })
 
     return { success: true }
   }
 
-  @Query(() => [Wood], { nullable: true })
-  async getAllWoods(): Promise<Wood[]> {
-    const woods = await WoodModel.find({})
-    return woods
+  @Query(() => [Brand], { nullable: true })
+  async getAllBrands(): Promise<Brand[]> {
+    const brands = await BrandModel.find({})
+    return brands
   }
 }

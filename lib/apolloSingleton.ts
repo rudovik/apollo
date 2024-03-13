@@ -3,11 +3,19 @@ import { buildSchema } from "type-graphql"
 import { ObjectId } from "mongodb"
 import path from "path"
 import { NextApiRequest, NextApiResponse } from "next"
-import { WoodResolver } from "resolvers/WoodResolver"
 import { ApolloServer } from "@apollo/server"
 import { startServerAndCreateNextHandler } from "@as-integrations/next"
 import { NextRequest } from "next/server"
 import { ObjectIdScalar } from "types/objectIdScalar"
+import { TypegooseMiddleware } from "middlewares/typegoose"
+
+import { WoodResolver } from "resolvers/WoodResolver"
+import { UserResolver } from "resolvers/UserResolver"
+import { AuthResolver } from "resolvers/AuthResolver"
+import { BrandResolver } from "resolvers/BrandResolver"
+import { ProductResolver } from "resolvers/ProductResolver"
+import { ImageResolver } from "resolvers/ImageResolver"
+import { SiteResolver } from "resolvers/SiteResolver"
 
 type HandlerType = {
   <HandlerReq extends NextApiRequest>(
@@ -45,9 +53,18 @@ const apolloSingleton = (function () {
     p = p.split(".next")[0] + "lib" + path.sep + "schema.graphqls"
 
     const schema = await buildSchema({
-      resolvers: [WoodResolver],
+      resolvers: [
+        UserResolver,
+        AuthResolver,
+        BrandResolver,
+        WoodResolver,
+        ProductResolver,
+        ImageResolver,
+        SiteResolver,
+      ],
       // emitSchemaFile: false,
       emitSchemaFile: process.env.NODE_ENV === "production" ? false : p,
+      globalMiddlewares: [TypegooseMiddleware],
       scalarsMap: [{ type: ObjectId, scalar: ObjectIdScalar }],
       validate: true,
     })
