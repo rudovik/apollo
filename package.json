@@ -16,6 +16,7 @@
   "dependencies": {
     "@apollo/server": "^4.10.1",
     "@as-integrations/next": "^3.0.0",
+    "@typegoose/typegoose": "^12.2.0",
     "class-validator": "^0.14.1",
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.5",

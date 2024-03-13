@@ -78,7 +78,7 @@ const apolloSingleton = (function () {
       return retHandler
     }
     if (retPromise) {
-      return await retPromise
+      return retPromise
     }
     if (!retHandler && !retPromise) {
       cached.promise = promise = initialize()
