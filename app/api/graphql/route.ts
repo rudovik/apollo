@@ -1,5 +1,5 @@
 import "reflect-metadata"
-// import initServer from "lib/apollo-singleton"
+import initServer from "lib/apollo-singleton"
 import { NextRequest } from "next/server"
 import { ApolloServer } from "@apollo/server"
 import { startServerAndCreateNextHandler } from "@as-integrations/next"
@@ -10,48 +10,48 @@ import { WoodResolver } from "resolvers/WoodResolver"
 import { buildSchema } from "type-graphql"
 import { ObjectId } from "mongodb"
 
-// async function handler(req: NextRequest) {
-//   const _handler = await initServer()
-
-//   const response = await _handler(req)
-//   return response
-// }
-
-const resolvers = {
-  Query: {
-    hello: () => "world",
-  },
-}
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`
-
-const server = new ApolloServer({
-  resolvers,
-  typeDefs,
-})
-
 async function handler(req: NextRequest) {
-  // let p: string = path.resolve(__dirname, "schema.gql")
-  // p = p.split(".next")[0] + "lib" + path.sep + "schema.graphqls"
-
-  const schema = await buildSchema({
-    resolvers: [WoodResolver],
-    emitSchemaFile: false,
-    scalarsMap: [{ type: ObjectId, scalar: ObjectIdScalar }],
-    validate: true,
-  })
-
-  const server = new ApolloServer({ schema, introspection: true })
-
-  const _handler = startServerAndCreateNextHandler(server)
+  const _handler = await initServer()
 
   const response = await _handler(req)
   return response
 }
+
+// const resolvers = {
+//   Query: {
+//     hello: () => "world",
+//   },
+// }
+
+// const typeDefs = gql`
+//   type Query {
+//     hello: String
+//   }
+// `
+
+// const server = new ApolloServer({
+//   resolvers,
+//   typeDefs,
+// })
+
+// async function handler(req: NextRequest) {
+//   // let p: string = path.resolve(__dirname, "schema.gql")
+//   // p = p.split(".next")[0] + "lib" + path.sep + "schema.graphqls"
+
+//   const schema = await buildSchema({
+//     resolvers: [WoodResolver],
+//     emitSchemaFile: false,
+//     scalarsMap: [{ type: ObjectId, scalar: ObjectIdScalar }],
+//     validate: true,
+//   })
+
+//   const server = new ApolloServer({ schema, introspection: true })
+
+//   const _handler = startServerAndCreateNextHandler(server)
+
+//   const response = await _handler(req)
+//   return response
+// }
 
 // const handler = startServerAndCreateNextHandler(server)
 
