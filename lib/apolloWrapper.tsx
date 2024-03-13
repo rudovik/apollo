@@ -20,7 +20,10 @@ const makeClient = (host, cookies) => {
     }
   })
 
-  const prefix = process.env.NODE_ENV === "production" ? "https://" : "http://"
+  let prefix = process.env.NODE_ENV === "production" ? "https://" : "http://"
+  if (!process.env.NEXT_PUBLIC_VERCEL_ENV) {
+    prefix = "http://"
+  }
 
   const uri = typeof window === "undefined" ? prefix + host : ""
   const simpleLink = new HttpLink({
