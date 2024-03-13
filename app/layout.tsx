@@ -5,7 +5,6 @@ import { getHostAndCookie } from "lib/getHostAndCookie"
 
 export default async function RootLayout({ children }) {
   const { host, cookie } = getHostAndCookie()
-
   return (
     <html lang="en">
       <ApolloWrapper host={host} cookies={cookie}>
