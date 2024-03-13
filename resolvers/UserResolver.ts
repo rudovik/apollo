@@ -158,7 +158,7 @@ export class UserResolver {
 
         ctx.user.cart.forEach((item) => {
           if (isDocument(item.productId) && isDocument(item.productId.brand)) {
-            ctx.user.history.push({
+            history.push({
               dateOfPurchase: Date.now(),
               name: item.productId.name,
               brand: item.productId.brand.name,
@@ -183,7 +183,7 @@ export class UserResolver {
         )
 
         ctx.user.cart = []
-        // ctx.user.history = [...history, ...ctx.user.history]
+        ctx.user.history = [...history, ...ctx.user.history]
         await ctx.user.save()
 
         const transactionData = {} as any
