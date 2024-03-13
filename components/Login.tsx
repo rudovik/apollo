@@ -25,7 +25,7 @@ export default function Login() {
     let formIsValid = isFormValid(state.formdata, "login")
 
     if (formIsValid) {
-      console.log(dataToSubmit)
+      // console.log(dataToSubmit)
 
       await login(dataToSubmit.email, dataToSubmit.password)
       // await loginMutation({
