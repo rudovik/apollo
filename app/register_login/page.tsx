@@ -1,8 +1,21 @@
+"use client"
+
 import { MyButton } from "components/MyButton"
 import Login from "components/Login"
+import { useAuth } from "lib/useAuth"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 export default function RegisterLogin() {
-  return (
+  const user = useAuth()
+  const router = useRouter()
+  useEffect(() => {
+    if (user) {
+      return router.push("/user/dashboard")
+    }
+  }, [user])
+
+  return !user ? (
     <div className="page_wrapper">
       <div className="container">
         <div className="register_login_container">
@@ -32,5 +45,5 @@ export default function RegisterLogin() {
         </div>
       </div>
     </div>
-  )
+  ) : null
 }

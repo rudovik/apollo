@@ -34,7 +34,7 @@ export default function Login() {
       //     input: { email: dataToSubmit.email, password: dataToSubmit.password },
       //   },
       // })
-      await refetchAuth()
+      // await refetchAuth()
     } else {
       setState({ ...state, formError: true })
     }

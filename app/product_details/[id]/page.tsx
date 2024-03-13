@@ -23,8 +23,6 @@ export default function ProductPage({ params: { id } }) {
     useAddProductToCartMutation()
   const { user, refetchAuth } = useAuth()
 
-  // console.log(product.images)
-
   async function addToCart(id) {
     if (user && user.isAuth) {
       const {
@@ -37,7 +35,6 @@ export default function ProductPage({ params: { id } }) {
         },
       })
       await refetchAuth()
-      // console.log(success)
     } else {
       console.log("You should to log in")
     }
