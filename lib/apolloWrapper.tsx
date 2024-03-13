@@ -1,6 +1,8 @@
 "use client"
 
 import { ApolloLink, HttpLink } from "@apollo/client"
+import { setContext } from "@apollo/client/link/context"
+
 import {
   ApolloNextAppProvider,
   NextSSRInMemoryCache,
@@ -8,12 +10,25 @@ import {
   SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support/ssr"
 
-const makeClient = (host) => {
-  const uri = typeof window === "undefined" ? "https://" + host : ""
-  const httpLink = new HttpLink({
+const makeClient = (host, cookies) => {
+  const linkWithContext = setContext((_, { headers }) => {
+    return {
+      headers: {
+        ...headers,
+        Cookie: cookies,
+      },
+    }
+  })
+
+  const prefix = process.env.NODE_ENV === "production" ? "https://" : "http://"
+
+  const uri = typeof window === "undefined" ? prefix + host : ""
+  const simpleLink = new HttpLink({
     uri: `${uri}/api/graphql`,
     fetchOptions: { cache: "no-store" },
   })
+
+  const httpLink = cookies ? linkWithContext.concat(simpleLink) : simpleLink
 
   return new NextSSRApolloClient({
     connectToDevTools: process.env.NODE_ENV === "development" ? true : false,
@@ -49,9 +64,9 @@ const makeClient = (host) => {
   })
 }
 
-export function ApolloWrapper({ children, host }) {
+export function ApolloWrapper({ children, host, cookies }) {
   return (
-    <ApolloNextAppProvider makeClient={() => makeClient(host)}>
+    <ApolloNextAppProvider makeClient={() => makeClient(host, cookies)}>
       {children}
     </ApolloNextAppProvider>
   )
