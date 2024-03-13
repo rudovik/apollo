@@ -42,7 +42,7 @@ async function handler(req: NextRequest) {
 
   const schema = await buildSchema({
     resolvers: [WoodResolver],
-    emitSchemaFile: p,
+    emitSchemaFile: true,
     scalarsMap: [{ type: ObjectId, scalar: ObjectIdScalar }],
     validate: true,
   })
