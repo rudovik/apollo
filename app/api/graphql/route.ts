@@ -1,3 +1,4 @@
+import "reflect-metadata"
 // import initServer from "lib/apollo-singleton"
 import { NextRequest } from "next/server"
 import { ApolloServer } from "@apollo/server"
