@@ -28,7 +28,7 @@ export default function Login() {
       // console.log(dataToSubmit)
 
       await login(dataToSubmit.email, dataToSubmit.password)
-      if (error) console.log(error)
+      // if (error) console.log(error)
       // await loginMutation({
       //   variables: {
       //     input: { email: dataToSubmit.email, password: dataToSubmit.password },
