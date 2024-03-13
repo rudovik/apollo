@@ -2,23 +2,26 @@ mutation Login($input: AuthInput!) {
   login(input: $input) {
     user {
       _id
-      email
-      history {
-        dateOfPurchase
-        name
-        brand
-        price
+      cart {
+        date
         quantity
-        productId
-        paymentId
+        productId {
+          _id
+        }
       }
+      email
       lastname
       name
       role
       token
-      cart {
+      history {
+        dateOfPurchase
+        productId
+        name
+        brand
+        price
         quantity
-        date
+        paymentId
       }
     }
   }

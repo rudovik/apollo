@@ -70,7 +70,7 @@ export function AuthProvider({ children, cookie }) {
     })
     await client.resetStore()
 
-    // router.push("/user/dashboard")
+    router.push("/user/dashboard")
   }
 
   const logout = async () => {

@@ -36,7 +36,7 @@ export const FileUpload = ({ imagesHandler, reset }) => {
     formdata.append("file", receivedFiles[0])
     const file = receivedFiles[0]
 
-    const response = await fetch("	http://localhost:3000/api/graphql", {
+    const response = await fetch("/api/graphql", {
       method: "POST",
       body: formdata,
       headers: {

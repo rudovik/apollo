@@ -13,6 +13,7 @@ export default function Login() {
   const router = useRouter()
   const {
     login: { login, loading },
+    refetchAuth,
   } = useAuth()
 
   const submitForm = async (event: React.SyntheticEvent) => {
@@ -24,7 +25,7 @@ export default function Login() {
     let formIsValid = isFormValid(state.formdata, "login")
 
     if (formIsValid) {
-      // console.log(dataToSubmit)
+      console.log(dataToSubmit)
 
       await login(dataToSubmit.email, dataToSubmit.password)
       // await loginMutation({
@@ -32,6 +33,7 @@ export default function Login() {
       //     input: { email: dataToSubmit.email, password: dataToSubmit.password },
       //   },
       // })
+      await refetchAuth()
     } else {
       setState({ ...state, formError: true })
     }
