@@ -8,11 +8,10 @@ import {
   SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support/ssr"
 
-const uri = typeof window === "undefined" ? "http://localhost:8000" : ""
-
-const makeClient = () => {
+const makeClient = (host) => {
+  const uri = typeof window === "undefined" ? "http://" + host : ""
   const httpLink = new HttpLink({
-    uri: uri + "/api/graphql",
+    uri: `${uri}/api/graphql`,
     fetchOptions: { cache: "no-store" },
   })
 
@@ -50,9 +49,9 @@ const makeClient = () => {
   })
 }
 
-export function ApolloWrapper({ children }) {
+export function ApolloWrapper({ children, host }) {
   return (
-    <ApolloNextAppProvider makeClient={makeClient}>
+    <ApolloNextAppProvider makeClient={() => makeClient(host)}>
       {children}
     </ApolloNextAppProvider>
   )
