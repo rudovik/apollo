@@ -12,7 +12,7 @@ export default function Login() {
   // const [loginMutation, { data, loading, error }] = useLoginMutation()
   const router = useRouter()
   const {
-    login: { login, loading },
+    login: { login, loading, error },
     refetchAuth,
   } = useAuth()
 
@@ -28,6 +28,7 @@ export default function Login() {
       // console.log(dataToSubmit)
 
       await login(dataToSubmit.email, dataToSubmit.password)
+      if (error) console.log(error)
       // await loginMutation({
       //   variables: {
       //     input: { email: dataToSubmit.email, password: dataToSubmit.password },
